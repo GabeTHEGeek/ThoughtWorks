@@ -96,12 +96,16 @@ public class ShoppingCart {
             
             
             TotalSalesTax += transSalesTax;
-            Output += trans.Quantity + " | " + trans.Description + " | " + (currTransTotal + transSalesTax) + "\r\n";
+            float grandSalesTotal = currTransTotal + transSalesTax;
+            //(grandSalesTotal).toFixed(2);
+            //grandSalesTotal.Math.round10(5.25, -2);
+            grandSalesTotal = Math.round(grandSalesTotal);
+            Output += trans.Quantity + " | " + trans.Description + " | " + grandSalesTotal +  "\r\n";
         }
         
         
         Output += "Sales Taxes: " + TotalSalesTax + TotalPrice + "\r\n";
-        Output += "Total: " + ((TotalNone + TotalRegular + TotalImport) / 100)+ "\r\n";
+        Output += "Total: " + ((TotalNone + TotalRegular + TotalImport))+ "\r\n";
        
         
        return Output;
