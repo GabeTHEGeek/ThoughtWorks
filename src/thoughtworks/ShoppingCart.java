@@ -46,6 +46,16 @@ public class ShoppingCart {
         Transactions.add(tempTrans);
         
     }
+    
+    public static float roundTransaction(float unrounded)
+    {
+        //multiply by 1000, use built in round function
+        unrounded *= 100;
+        unrounded = Math.round(unrounded);
+        unrounded /= 100;
+        
+        return unrounded;
+    }
 
     public String GetReceipt()
     {
@@ -57,8 +67,6 @@ public class ShoppingCart {
         float TotalImport = 0;
         float NonTaxableImport = TaxRates.get(TaxBracket.NonTaxableImport);
         float TotalSalesTax = 0;
-        float TotalPrice = 0;
-        float totalOutputs = 0;
         
         
         String Output="";
@@ -96,16 +104,18 @@ public class ShoppingCart {
             
             
             TotalSalesTax += transSalesTax;
+            
             float grandSalesTotal = currTransTotal + transSalesTax;
-            //(grandSalesTotal).toFixed(2);
-            //grandSalesTotal.Math.round10(5.25, -2);
-            grandSalesTotal = Math.round(grandSalesTotal);
+            grandSalesTotal = roundTransaction(grandSalesTotal);
             Output += trans.Quantity + " | " + trans.Description + " | " + grandSalesTotal +  "\r\n";
         }
         
+        float grandTransationTotal = TotalNone + TotalRegular + TotalImport;
+        grandTransationTotal = roundTransaction(grandTransationTotal);
+        TotalSalesTax = roundTransaction(TotalSalesTax);
         
-        Output += "Sales Taxes: " + TotalSalesTax + TotalPrice + "\r\n";
-        Output += "Total: " + ((TotalNone + TotalRegular + TotalImport))+ "\r\n";
+        Output += "Sales Taxes: " + TotalSalesTax + "\r\n";
+        Output += "Total: " + grandTransationTotal + "\r\n";
        
         
        return Output;
