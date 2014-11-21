@@ -40,11 +40,8 @@ public class ShoppingCart {
     
     public void AddTransaction(String Name, int Quantity, float Value, TaxBracket Tax)
     {
-        // TODO: Allocate new transaction - fill its data (via constructor)
-        // TODO: Add new transaction to Transactions list
         Transaction tempTrans = new Transaction(Name, Quantity, Value, TaxRates.get(Tax));
         Transactions.add(tempTrans);
-        
     }
     
     public static float roundTransaction(float unrounded)
@@ -55,6 +52,15 @@ public class ShoppingCart {
         unrounded /= 100;
         
         return unrounded;
+    }
+    
+    public float getRoundedTax(float taxAmount , float price )
+    {
+         //np/100 rounded to the nearest 0.5
+        
+        float amountFromTax = taxAmount * price /100;
+        amountFromTax = (int)(amountFromTax/.05f +.5f)*.05f;
+        return  amountFromTax;
     }
 
     public String GetReceipt()
@@ -86,20 +92,23 @@ public class ShoppingCart {
             
             if(trans.Tax == Regular)
             {
-                transSalesTax = currTransTotal * Regular;
+                transSalesTax = currTransTotal + getRoundedTax(Regular, currTransTotal);
+                System.out.println(transSalesTax);
                 TotalRegular += currTransTotal + transSalesTax;
             }
             
             if(trans.Tax == Import)
             {
-                transSalesTax = currTransTotal * (Import + Regular);
+                transSalesTax = currTransTotal + getRoundedTax(Import + Regular, currTransTotal );
                 TotalImport += currTransTotal + transSalesTax;
+                System.out.println(transSalesTax);
             }
             
             if(trans.Tax == NonTaxableImport)
             {
-                transSalesTax = currTransTotal * Import;
+                transSalesTax = currTransTotal + getRoundedTax(Import, currTransTotal);
                 TotalImport += currTransTotal + transSalesTax;
+                System.out.println(transSalesTax);
             }
             
             

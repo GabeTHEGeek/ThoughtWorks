@@ -35,9 +35,9 @@ public class SalesTax {
         
         ShoppingCart Cart = new ShoppingCart(0.1f, 0.05f);
         
-        Cart.AddTransaction("book", 1, 12.49f, TaxBracket.None);
-        Cart.AddTransaction("music CD", 1, 14.99f, TaxBracket.Regular);
-        Cart.AddTransaction("chocolate bar", 1, 0.85f, TaxBracket.None);
+   //     Cart.AddTransaction("book", 1, 12.49f, TaxBracket.None);
+       Cart.AddTransaction("music CD", 1, 14.99f, TaxBracket.Regular);
+     //   Cart.AddTransaction("chocolate bar", 1, 0.85f, TaxBracket.None);
         
         System.out.println(Cart.GetReceipt());
         Cart.EmptyCart();
